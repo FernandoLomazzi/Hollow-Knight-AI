@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "My Agent Hollow Knight Mod", "My Agent Hollow Knight Mod\My Agent Hollow Knight Mod.csproj", "{75CE79F8-5CA8-4E4C-A687-3A71C8336F36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{4F50EC70-3139-4AE5-B6AB-54A387A27A0C}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\dependabot.yml = .github\dependabot.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75CE79F8-5CA8-4E4C-A687-3A71C8336F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75CE79F8-5CA8-4E4C-A687-3A71C8336F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75CE79F8-5CA8-4E4C-A687-3A71C8336F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75CE79F8-5CA8-4E4C-A687-3A71C8336F36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA0D32B3-ED46-456E-BFDA-C51D7D228561}
+	EndGlobalSection
+EndGlobal
