@@ -169,3 +169,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+data/
+results/
+test/
+mod/My Agent Hollow Knight Mod/.github/
+mod/My Agent Hollow Knight Mod/.vs/
+log.txt
