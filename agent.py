@@ -75,7 +75,6 @@ def pipe_handle():
 
 def process(pipe):
     global f
-    writer = None
     window = None
     BUFFER_SIZE = 262144
 
@@ -103,10 +102,7 @@ def process(pipe):
             message_type = ctypes.cast(message, ctypes.POINTER(ctypes.c_longlong)).contents.value
 
             # Start agent message
-            if message_type == 3:  
-                ret = ctypes.windll.kernel32.ReadFile(pipe, message, BUFFER_SIZE, ctypes.byref(dwRead), None)
-                if not ret:
-                    error_handler("Error while reading. 2")
+            if message_type == 3:
                 window = torch.zeros([3, 512], dtype=torch.float32, device=device)
                 key_queue = queue.Queue()
                 worker_thread = threading.Thread(target=worker_function, args=(key_queue,))

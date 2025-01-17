@@ -6,12 +6,11 @@ using System.IO;
 using System.Collections;
 using System;
 using System.Threading;
-using System.Text;
 
 namespace HKAgentMod {
     public class HKAgentMod : Mod {
         new public string GetName() => "HKAgentMod";
-        public override string GetVersion() => "v0.1.2";
+        public override string GetVersion() => "v1.0.0";
         /*
          * Mod
         */
@@ -24,7 +23,6 @@ namespace HKAgentMod {
          * Video
         */
         private NamedPipeClientStream pipeClientStream;
-        private int actualFrame = 0;
         private Texture2D texture;
 
         public HKAgentMod() : base() {
@@ -44,11 +42,8 @@ namespace HKAgentMod {
                 StartInfo = {
                     FileName = "python",
                     Arguments = Path.Combine(properties.getFolderPath(), "agent.py"),
-                    //Arguments  = joinAbsolutePath("hollow_knight_Data/Managed/Mods/My_Agent_Hollow_Knight_Mod/utils/server.py"),
-                    //Arguments = ('"'),
                     UseShellExecute = false,
-                    WorkingDirectory = properties.getFolderPath()
-                    //WorkingDirectory = joinAbsolutePath("hollow_knight_Data/Managed/Mods/My_Agent_Hollow_Knight_Mod/utils"),
+                    WorkingDirectory = properties.getFolderPath(),
                     //CreateNoWindow = true
                 },
                 EnableRaisingEvents = true
@@ -100,14 +95,6 @@ namespace HKAgentMod {
                 }
                 if (!this.isEnabled || Time.frameCount % 3 != 0)
                     return;
-                if (this.actualFrame == this.properties.getBatchSize()) { // BatchSize -> Time limit
-                    // reinitialize
-                    actualFrame = 0;
-                    bgProcessor.EnqueueTask(() => pipeClientStream.WriteByte(0b00110000));
-                    generateNewFileName();
-
-                }
-                actualFrame++;
                 // Video Recorder
                 GameManager.instance.StartCoroutine(writeVideoFrame());
             }
@@ -121,7 +108,6 @@ namespace HKAgentMod {
             texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
             texture.Apply();
             bgProcessor.EnqueueTask(() => ProcessFrame(texture));
-            //Task task = Task.Run(() => ProcessFrame(texture));
         }
         private void ProcessFrame(Texture2D texTemp) {
             byte[] bytes = texTemp.EncodeToJPG();
@@ -130,8 +116,7 @@ namespace HKAgentMod {
         }
         private void beginRecording() {
             isEnabled = true;
-            actualFrame = 0;
-            generateNewFileName();
+            bgProcessor.EnqueueTask(() => pipeClientStream.WriteByte(0b00000011));
         }
         private void endRecording() {
             isEnabled = false;
@@ -140,14 +125,7 @@ namespace HKAgentMod {
         private static string joinAbsolutePath(string path) {
             return Path.Combine(Directory.GetCurrentDirectory(), path).Replace("\\", "/");
         }
-        private void generateNewFileName() {
-            String fileName = this.properties.getUsername() + " " + DateTime.Now.ToString("yyyy-MM-dd HH'h'mm'm'ss's'");
-            byte[] fileNameBytes = Encoding.UTF8.GetBytes(fileName);
-            bgProcessor.EnqueueTask(() => {
-                pipeClientStream.WriteByte(0b00000011);
-                pipeClientStream.Write(fileNameBytes, 0, fileNameBytes.Length);
-            });
-        }
+
         private void OnPipeExit(object sender, EventArgs e) {
             Log(pipeProcess.ExitCode);
             Log(e.ToString());
