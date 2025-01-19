@@ -11,12 +11,15 @@ import queue
 import keyboard
 
 f = open('log.txt', 'w')
+#           left    right    jump    attack    dash    spell    focus
 actions = ['left', 'right', 'z'   , 'x'     , 'c'   , 'd'    , 'space']
+
 
 def error_handler(message):
     f.write(f"!!! ERROR !!! -> {message}\n")
     f.close()
     sys.exit(-1)
+
 
 def worker_function(q):
     prev_mask = [False] * 7
@@ -44,7 +47,6 @@ def pipe_handle():
     PIPE_WAIT = 0x00000000
     PIPE_REJECT_REMOTE_CLIENTS = 0x00000008
     ERROR_PIPE_CONNECTED = 535
-    FOLDER_PATH = "F:/Hollow-Knight-AI/test/"
 
     if len(sys.argv) != 1:
         error_handler("Invalid number of arguments")
@@ -72,6 +74,7 @@ def pipe_handle():
         error_handler("The client connected before the pipe was available to support the connection")
     f.write("--- CLIENT CONNECTED SUCCESSFULLY ---\n")
     return pipe
+
 
 def process(pipe):
     global f
@@ -137,6 +140,7 @@ def process(pipe):
     except Exception as e:
         error_handler(e)
     ctypes.windll.kernel32.CloseHandle(pipe)
+
 
 if __name__ == "__main__":
     pipe = pipe_handle()

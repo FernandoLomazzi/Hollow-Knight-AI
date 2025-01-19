@@ -44,7 +44,7 @@ namespace HKAgentMod {
                     Arguments = Path.Combine(properties.getFolderPath(), "agent.py"),
                     UseShellExecute = false,
                     WorkingDirectory = properties.getFolderPath(),
-                    //CreateNoWindow = true
+                    CreateNoWindow = true
                 },
                 EnableRaisingEvents = true
             };

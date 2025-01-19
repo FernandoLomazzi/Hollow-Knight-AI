@@ -9,7 +9,7 @@ namespace HKAgentMod {
         public Properties(HKAgentMod mod) {
             properties= new Dictionary<string, string>();
             try {
-                foreach (string line in File.ReadAllLines("hollow_knight_Data/Managed/Mods/My_Agent_Hollow_Knight_Mod/utils/config.ini")) {
+                foreach (string line in File.ReadAllLines("hollow_knight_Data/Managed/Mods/My_Agent_Hollow_Knight_Mod/config.ini")) {
                     if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#") || !line.Contains("="))
                         continue;
                     mod.Log(line);
@@ -36,14 +36,8 @@ namespace HKAgentMod {
             }
             return ret;
         }
-        public String getUsername() {
-            return this.properties["Username"];
-        }
         public String getFolderPath() {
             return this.properties["FolderPath"].Replace("\\", "/");            
-        }
-        public int getBatchSize() {
-            return Int32.Parse(this.properties["BatchSize"]);
         }
         public int getWidthScreen() {
             return Int32.Parse(this.properties["ScreenWidth"]);

@@ -1,0 +1,9 @@
+torch==2.5.1+cu118
+torchvision==0.20.1+cu118
+scikit-learn==1.5.0
+opencv-python==4.10.0
+pyautogui==0.9.54
+numpy==1.26.4
+matplotlib==3.9.0
+pandas==2.2.2
+seaborn==0.13.2
