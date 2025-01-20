@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from torchvision import transforms
 import torch
-import modelos
+import models
 import time
 import threading
 import queue
@@ -89,8 +89,8 @@ def process(pipe):
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
-    best_model_w = torch.load(f'./results/modelR5-FT-5.pt', weights_only=True)
-    best_model = modelos.ResnetModel(512, 256, 2, 7, lstm_dropout=0.2, bi=False).to(device)
+    best_model_w = torch.load(f'./model/modelR5-FT_hidden_size=256, num_layers=2, num_classes=7, learning_rate=0.001, weight_decay=0.0, lstm_dropout=0.2, bi=False.pt', weights_only=True)
+    best_model = models.ResnetModel(512, 256, 2, 7, lstm_dropout=0.2, bi=False).to(device)
     best_model.load_state_dict(best_model_w)
     best_model.eval()
     try:
